@@ -26,5 +26,12 @@
 		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'form' => false, 'navbar' => true));
 	});
 
+    $app->post("/stylist", function() use ($app)
+	{
+		$stylist = new Stylist($_POST['name']);
+		$stylist->save();
+		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll()));
+	});
+
     return $app;
  ?>

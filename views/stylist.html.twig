@@ -4,33 +4,50 @@
     {% include '/includes/head.html.twig' %}
 </head>
 <body>
-    {% include '/includes/navbar.html.twig' %}
-    <div class="container">
-        <h1>{{ stylist.getType() }}</h1>
+    <h1>{{ stylist.getName }}</h1>
 
-        {% if clients is not empty %}
-            <p>See clients and their stylists below:</p>
-            <ul>
-                {% for client in clients %}
-                    <li>{{ client.getName }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>There are no clients yet! Add a client below.</p>
-        {% endif %}
+    {% if clients is not empty %}
+        <p>Here are all your clients:</p>
+        <ul>
+            {% for client in clients %}
+                <li><a href="/client/{{ client.getId }}">{{ client.getName }}</a><a href="/client/{{ stylist.getId }}/{{ client.getId }}/edit_form">Edit</a>
+                    <form action="/clients/{{ stylist.getId }}/{{ client.getId }}/delete" method="post">
+                        <input name="_method" type="hidden" value="delete">
+                        <button type="submit">Delete this client</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+      <p>There are no clients yet, add some!</p>
+    {% endif %}
 
-        <form action="/client" method="post">
-           <input id="stylist_id" type="hidden" name="stylist_id" value="{{ stylist.getId() }}">
-           <label for="name">Client Name:</label>
-           <input id="name" name="name" type="text">
-           <button type="submit">Add Client</button>
+    <h4>Add a client</h4>
+
+    <form action='/clients' method='post'>
+        <input id="stylist_id" name="stylist_id" type="hidden" value="{{ stylist.getId() }}">
+        <label for='name'>Name</label>
+        <input id='name' name='name' type='text'>
+
+        <label for="address">Address</label>
+        <input type="text" name="address">
+
+        <label for="description">Description</label>
+        <input type="text" name="description">
+
+        <button type='submit'>Add Client</button>
+    </form>
+
+    {% if form %}
+        <form action="/clients/updated" method="post">
+            <input name="_method" type="hidden" value="patch">
+            <input name="current_clientId" type="hidden" value="{{ current_client.getId() }}">
+            <input name="stylist_id" type="hidden" value="{{ stylist.getId() }}">
+            <input type="text" name="name">
+            <button type="submit" name="button">Edit Name</button>
         </form>
+    {% endif %}
 
-    <button><a href="/">Home</a></button>
-
-        <!-- <form action='/delete_categories' method='post'>
-           <button type='submit'>Delete Category List</button>
-        </form> -->
-   </div>
+    <p><a href='/'>Home</a></p>
 </body>
 </html>

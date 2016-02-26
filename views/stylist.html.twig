@@ -1,0 +1,36 @@
+
+<html>
+<head>
+    {% include '/includes/head.html.twig' %}
+</head>
+<body>
+    {% include '/includes/navbar.html.twig' %}
+    <div class="container">
+        <h1>{{ stylist.getType() }}</h1>
+
+        {% if clients is not empty %}
+            <p>See clients and their stylists below:</p>
+            <ul>
+                {% for client in clients %}
+                    <li>{{ client.getName }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no clients yet! Add a client below.</p>
+        {% endif %}
+
+        <form action="/client" method="post">
+           <input id="stylist_id" type="hidden" name="stylist_id" value="{{ stylist.getId() }}">
+           <label for="name">Client Name:</label>
+           <input id="name" name="name" type="text">
+           <button type="submit">Add Client</button>
+        </form>
+
+    <button><a href="/">Home</a></button>
+
+        <!-- <form action='/delete_categories' method='post'>
+           <button type='submit'>Delete Category List</button>
+        </form> -->
+   </div>
+</body>
+</html>

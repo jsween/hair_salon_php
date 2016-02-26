@@ -62,4 +62,41 @@
             //Assert
             $this->assertEquals([], $result);
         }
+        function test_save()
+		{
+			//Arrange
+			$stylist_name = "stylist";
+			$new_stylist = new Stylist($stylist_name);
+			$new_stylist->save();
+
+			$client_name = "client";
+			$client_stylist_id =  $new_stylist->getId();
+			$new_client = new Client($client_name, $client_stylist_id);
+			$new_client->save();
+			//Act
+			$result = Client::getAll();
+			//Assert
+			$this->assertEquals($new_client, $result[0]);
+		}
+        function test_get_all()
+        {
+            //Arrange
+			$stylist_name = "stylist name";
+			$new_stylist = new Stylist($stylist_name);
+			$new_stylist->save();
+
+			$client_name = "client name";
+			$client_stylist_id =  $new_stylist->getId();
+			$new_client = new Client($client_name, $client_stylist_id);
+			$new_client->save();
+
+            $client_name2 = "client name2";
+			$client_stylist_id2 =  $new_stylist->getId();
+			$new_client2 = new Client($client_name2, $client_stylist_id2);
+			$new_client2->save();
+            //Act
+            $result = Client::getAll();
+            //Assert
+            $this->assertEquals([$new_client, $new_client2], $result);
+        }
     }

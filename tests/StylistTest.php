@@ -65,7 +65,7 @@
 		// 	//Assert
 		// 	$this->assertEquals([ $new_stylist2], $result);
 		// }
-		function test_getAll()
+		function test_get_all()
 		{
 			//Arrange
 			$stylist_name1 = "Stylist 1";

@@ -99,4 +99,20 @@
             //Assert
             $this->assertEquals([$new_client, $new_client2], $result);
         }
+        function test_find()
+        {
+            //Arrange
+            $stylist_name = "Susan";
+            $new_stylist = new Stylist($stylist_name);
+            $new_stylist->save();
+
+            $client_name = "Johnny Quick";
+            $client_stylist_id = $new_stylist->getId();
+            $new_client = new Client($client_name, $client_stylist_id);
+            $new_client->save();
+            //Act
+            $result = Client::find($new_client->getId());
+            //Assert
+            $this->assertEquals($new_client, $result);
+        }
     }

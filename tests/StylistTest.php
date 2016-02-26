@@ -40,6 +40,22 @@
 			//Assert
 			$this->assertEquals($new_stylist, $result[0]);
 		}
+
+		function test_getAll()
+		{
+			//Arrange
+			$stylist_name1 = "Stylist 1";
+			$new_stylist1 = new Stylist($stylist_name1);
+			$new_stylist1->save();
+
+			$stylist_name2 = "Stylist 2";
+			$new_stylist2 = new Stylist($stylist_name2);
+			$new_stylist2->save();
+			//Act
+			$result = Stylist::getAll();
+			//Assert
+			$this->assertEquals([$new_stylist1, $new_stylist2], $result);
+		}
     }
 
  ?>

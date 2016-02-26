@@ -10,7 +10,7 @@
         <p>Here are all your clients:</p>
         <ul>
             {% for client in clients %}
-                <li><a href="/client/{{ stylist.getId }}/{{ client.getId }}">{{ client.getName }}</a><a href="/client/{{ stylist.getId }}/{{ client.getId }}/edit_form"><br>Edit</a>
+                <li><a href="/client/{{ client.getId }}">{{ client.getName }}</a><a href="/client/{{ stylist.getId }}/{{ client.getId }}/edit_form"><br>Edit</a>
                     <form action="/clients/{{ stylist.getId }}/{{ client.getId }}/delete" method="post">
                         <input name="_method" type="hidden" value="delete">
                         <button type="submit">Delete this client</button>

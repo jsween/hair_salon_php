@@ -133,4 +133,5 @@
             //Assert
             $this->assertEquals('Johnny B. Quick', $new_client->getName());
         }
+		
     }

@@ -1,39 +1,24 @@
-<h1>{{ client.getName }}</h1>
+<h1>{{ current_client.getName }}</h1>
 
-{% if clients is not empty %}
-    <p>Here are all your clients:</p>
-    <ol>
-        {% for client in clients %}
-            <li>
-            <p>Name: {{ client.getName }}<a href="/client/{{ client.getId }}/{{ client.getId }}/edit_form">edit name</a>
-                <form action="/clients/{{ client.getId }}" method="post">
-                    <input name="_method" type="hidden" value="delete">
-                    <button type="submit">Delete this Client</button>
-                </form>
-            </p>
-            </li>
-        {% endfor %}
-    </ol>
-{% else %}
-  <p>This stylist does not have any clients yet!</p>
+{% if message %}
+    <h3>{{ current_client.getName }} has been updated</h3>
 {% endif %}
+{% if form %} //fix line 82 in app first
+    <h4>Add Client's Favorite Haircut:</h4>
+    <form action='/clients' method='post'>
+        <input id="client_id" name="client_id" type="hidden" value="{{ client.getId() }}">
+        <label for='haircut'>Haircut Name:</label>
+        <input id='haircut' name='haircut' type='text'>
 
-<h4>Add a client</h4>
+        <button type='submit'>Add Haircut</button>
+    </form>
 
-<form action='/clients' method='post'>
-    <input id="client_id" name="client_id" type="hidden" value="{{ client.getId() }}">
-    <label for='name'>Name</label>
-    <input id='name' name='name' type='text'>
 
-    <button type='submit'>Add Review</button>
-</form>
-
-{% if form %}
     <form action="/clients/updated" method="post">
         <input name="_method" type="hidden" value="patch">
         <input name="current_clientId" type="hidden" value="{{ current_client.getId() }}">
         <input name="client_id" type="hidden" value="{{ client.getId() }}">
-        <input type="text" name="name">
+        <input id="name" name="name" type="text">
         <button type="submit" name="button">Edit Name</button>
     </form>
 {% endif %}

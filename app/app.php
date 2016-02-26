@@ -32,7 +32,6 @@
 		return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
 	});
 
-
     $app->post("/stylists", function() use ($app)
 	{
 		$stylist = new Stylist($_POST['name']);
@@ -76,6 +75,15 @@
 		return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
 	});
 
+    $app->patch("/clients/updated", function() use ($app)
+	{
+		$client_to_edit = Client::find($_POST['current_clientId']);
+		$client_to_edit->update($_POST['name']);
+        var_dump($client_to_edit);
+
+		return $app['twig']->render('client.html.twig', array('clients' => $client_to_edit, 'form' => false, 'message' => true));
+	});
+
     $app->get("/client/{sid}/{cid}/edit_form", function($sid, $cid) use ($app)
 	{
 		$current_client = Client::find($cid);
@@ -83,11 +91,10 @@
 		return $app['twig']->render('stylist.html.twig', array('current_client' => $current_client, 'stylist' => $stylist, 'clients' => $stylist->getClients(), 'form' => true, 'navbar' => true));
 	});
 
-    $app->get("/client/{id}", function($cid, $sid) use ($app)
+    $app->get("/client/{id}", function($id) use ($app)
 	{
-		$current_client = Client::find($cid);
-        $stylist = Stylist::find($sid);
-		return $app['twig']->render('stylist.html.twig', array('current_client' => $current_client, 'stylist' => $stylist, 'clients' => $stylist->getClients(), 'navbar' => true));
+		$current_client = Client::find($id);
+		return $app['twig']->render('client.html.twig', array('current_client' => $current_client, 'form' => true, 'navbar' => true)); //FIX ME
 	});
 
     return $app;

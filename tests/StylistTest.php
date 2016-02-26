@@ -9,7 +9,7 @@
 	$DB = new PDO($server, $username, $password);
 
 	require_once 'src/Stylist.php';
-	require_once 'src/Client.php';
+	// require_once 'src/Client.php';
 
     class StylistTest extends PHPUnit_Framework_TestCase
     {
@@ -23,7 +23,7 @@
             $result = $test_Stylist->getName();
 
             //Assert
-            $this->assertEquals("Vidal Sasson", $result);
+            $this->assertEquals("Vidal Sassoon", $result);
         }
     }
 

@@ -10,7 +10,7 @@
         <p>Here are all your clients:</p>
         <ul>
             {% for client in clients %}
-                <li><a href="/client/{{ client.getId }}">{{ client.getName }}</a><a href="/client/{{ stylist.getId }}/{{ client.getId }}/edit_form">Edit</a>
+                <li><a href="/client/{{ stylist.getId }}/{{ client.getId }}">{{ client.getName }}</a><a href="/client/{{ stylist.getId }}/{{ client.getId }}/edit_form"><br>Edit</a>
                     <form action="/clients/{{ stylist.getId }}/{{ client.getId }}/delete" method="post">
                         <input name="_method" type="hidden" value="delete">
                         <button type="submit">Delete this client</button>
@@ -19,7 +19,7 @@
             {% endfor %}
         </ul>
     {% else %}
-      <p>There are no clients yet, add some!</p>
+      <p>{{ stylist.getName }} does not have any clients yet... add some!</p>
     {% endif %}
 
     <h4>Add a client</h4>
@@ -28,12 +28,6 @@
         <input id="stylist_id" name="stylist_id" type="hidden" value="{{ stylist.getId() }}">
         <label for='name'>Name</label>
         <input id='name' name='name' type='text'>
-
-        <label for="address">Address</label>
-        <input type="text" name="address">
-
-        <label for="description">Description</label>
-        <input type="text" name="description">
 
         <button type='submit'>Add Client</button>
     </form>

@@ -26,6 +26,13 @@
 		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'form' => false, 'navbar' => true));
 	});
 
+    $app->get("/stylist/{id}", function($id) use ($app)
+	{
+		$stylist = Stylist::find($id);
+		return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
+	});
+
+
     $app->post("/stylists", function() use ($app)
 	{
 		$stylist = new Stylist($_POST['name']);
@@ -51,7 +58,7 @@
 	{
 		$stylist_to_edit = Stylist::find($_POST['current_stylistId']);
 		$stylist_to_edit->update($_POST['name']);
-		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'navbar' => true));
+		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll()));
 	});
 
 	$app->delete("/stylists/{id}/delete", function($id) use ($app)
@@ -59,6 +66,28 @@
 		$stylist = Stylist::find($id);
 		$stylist->delete();
 		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'form' => false, 'navbar' => true));
+	});
+
+    $app->post("/clients", function() use ($app)
+	{
+		$client = new Client($_POST['name'], $_POST['stylist_id']);
+		$client->save();
+		$stylist = Stylist::find($_POST['stylist_id']);
+		return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
+	});
+
+    $app->get("/client/{sid}/{cid}/edit_form", function($sid, $cid) use ($app)
+	{
+		$current_client = Client::find($cid);
+		$stylist = Stylist::find($sid);
+		return $app['twig']->render('stylist.html.twig', array('current_client' => $current_client, 'stylist' => $stylist, 'clients' => $stylist->getClients(), 'form' => true, 'navbar' => true));
+	});
+
+    $app->get("/client/{id}", function($cid, $sid) use ($app)
+	{
+		$current_client = Client::find($cid);
+        $stylist = Stylist::find($sid);
+		return $app['twig']->render('stylist.html.twig', array('current_client' => $current_client, 'stylist' => $stylist, 'clients' => $stylist->getClients(), 'navbar' => true));
 	});
 
     return $app;

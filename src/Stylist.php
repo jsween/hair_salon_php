@@ -64,6 +64,11 @@
             }
             return $found_stylist;
         }
+        /* DELETE SINGLE STYLIST*/
+        // function delete()
+        // {
+        //     $GLOBALS['DB']->exec("DELETE ")
+        // }
 
 
     }

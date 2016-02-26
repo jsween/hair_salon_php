@@ -23,7 +23,7 @@
     /* Homepage -- shows stylists */
     $app->get("/", function() use ($app)
 	{
-		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'form' => false));
+		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'form' => false, 'navbar' => true));
 	});
 
     return $app;

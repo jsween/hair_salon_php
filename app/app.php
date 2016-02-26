@@ -26,11 +26,39 @@
 		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'form' => false, 'navbar' => true));
 	});
 
-    $app->post("/stylist", function() use ($app)
+    $app->post("/stylists", function() use ($app)
+	{
+		$stylist = new Stylist($_POST['name']);
+		$stylist->save();
+		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'navbar' => true));
+	});
+
+    $app->post("/stylists", function() use ($app)
 	{
 		$stylist = new Stylist($_POST['name']);
 		$stylist->save();
 		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll()));
+	});
+
+	$app->get("/stylists/{id}/edit_form", function($id) use ($app)
+	{
+		$current_stylist = Stylist::find($id);
+		$stylists = Stylist::getAll();
+		return $app['twig']->render('index.html.twig', array('current_stylist' => $current_stylist, 'stylists' => $stylists, 'form' => true));
+	});
+
+	$app->patch("/stylists/updated", function() use ($app)
+	{
+		$stylist_to_edit = Stylist::find($_POST['current_stylistId']);
+		$stylist_to_edit->update($_POST['name']);
+		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll()));
+	});
+
+	$app->delete("/stylists/{id}/delete", function($id) use ($app)
+	{
+		$stylist = Stylist::find($id);
+		$stylist->delete();
+		return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll(), 'form' => false));
 	});
 
     return $app;

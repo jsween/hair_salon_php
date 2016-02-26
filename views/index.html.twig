@@ -1,0 +1,32 @@
+<html>
+<head>
+    {% include '/includes/head.html.twig' %}
+</head>
+<body>
+    <h1 class="well">Your Stylists</h1>
+    <h3>Search for clients by stylist or enter a new client</p>
+
+
+    <form action="/stylist" method="post">
+        <label for="type">Stylist Name:</label>
+        <input id="type" name="type" type="text">
+        <button class="btn btn-success" type="submit">Add Stylist</button>
+    </form>
+
+    {% if stylists is not empty %}
+        <p>See clients and their stylists below:</p>
+        <ul>
+            {% for stylist in stylists %}
+                <li><a href="/stylists/{{ stylist.getId }}">{{ stylist.getType }}</a></li>
+            {% endfor %}
+        </ul>
+   {% else %}
+     <p>There are no stylists yet!</p>
+   {% endif %}
+
+   <!-- <form action='/delete_categories' method='post'>
+       <button type='submit'>Delete Category List</button>
+   </form> -->
+
+</body>
+</html>

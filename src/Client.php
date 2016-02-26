@@ -36,7 +36,32 @@
         {
             return $this->id;
         }
-
+        /* SAVE */
+        function save()
+        {
+            $GLOBALS['DB']->query("INSERT INTO clients (name, stylist_id) VALUES ('{$this->name}', {$this->stylist_id})");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+        /* GET ALL CLIENTS */
+        static function getAll()
+        {
+            $returned_clients = $GLOBALS['DB']->query("SELECT * FROM clients");
+            $clients = array();
+            foreach($returned_clients as $client)
+            {
+                $name = $client['name'];
+                $stylist_id = $client['stylist_id'];
+                $id = $client['id'];
+                $new_client = new Client($name, $stylist_id, $id);
+                array_push($clients, $new_client);
+            }
+            return $clients;
+        }
+        /* DELETE ALL CLIENTS */
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM clients");
+        }
 
 
     }

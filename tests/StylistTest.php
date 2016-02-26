@@ -17,7 +17,6 @@
 		{
 			Stylist::deleteAll();
 		}
-
         function test_get_name()
         {
             //Arrange
@@ -28,7 +27,6 @@
             //Assert
             $this->assertEquals("Vidal Sassoon", $result);
         }
-
 		function test_save()
 		{
 			//Arrange
@@ -40,7 +38,33 @@
 			//Assert
 			$this->assertEquals($new_stylist, $result[0]);
 		}
-
+		function test_find()
+		{
+			//Arrange
+			$stylist_name = "stylist name";
+			$new_stylist = new Stylist($stylist_name);
+			$new_stylist->save();
+			//Act
+			$result = Stylist::find($new_stylist->getId());
+			//Assert
+			$this->assertEquals($new_stylist, $result);
+		}
+		// function test_delete()
+		// {
+		// 	//Arrange
+		// 	$stylist_name1 = "Stylist 1";
+		// 	$new_stylist1 = new Stylist($stylist_name1);
+		// 	$new_stylist1->save();
+		//
+		// 	$stylist_name2 = "Stylist 2";
+		// 	$new_stylist2 = new Stylist($stylist_name2);
+		// 	$new_stylist2->save();
+		// 	//Act
+		// 	$new_stylist1->delete();
+		// 	$result = Stylist::getAll();
+		// 	//Assert
+		// 	$this->assertEquals([ $new_stylist2], $result);
+		// }
 		function test_getAll()
 		{
 			//Arrange
@@ -56,6 +80,7 @@
 			//Assert
 			$this->assertEquals([$new_stylist1, $new_stylist2], $result);
 		}
+
     }
 
  ?>

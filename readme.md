@@ -17,7 +17,7 @@ _The Silex php app is designed to allow a user to build a database for a hair sa
 
 ## Known Bugs
 
-_No known bugs at this time._
+_Unable to input 's_
 
 ## Support and contact details
 

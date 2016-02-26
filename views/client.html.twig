@@ -1,29 +1,38 @@
-<h1>{{ current_client.getName }}</h1>
+<html>
+<head>
+    {% include '/includes/head.html.twig' %}
+</head>
+<body>
+    {% include '/includes/navbar.html.twig' %}
+    <div class="container">
 
-{% if message %}
-    <h3>{{ current_client.getName }} has been updated</h3>
-{% endif %}
-{% if form %} //fix line 82 in app first
-    <h4>Add Client's Favorite Haircut:</h4>
-    <form action='/clients' method='post'>
-        <input id="client_id" name="client_id" type="hidden" value="{{ client.getId() }}">
-        <label for='haircut'>Haircut Name:</label>
-        <input id='haircut' name='haircut' type='text'>
+        <h1>{{ current_client.getName }}</h1>
 
-        <button type='submit'>Add Haircut</button>
-    </form>
+        {% if message %}
+            <h3>{{ current_client.getName }} has been updated</h3>
+        {% endif %}
+        {% if form %}
+            <h4>Add Client's Favorite Haircut:</h4>
+            <form action='/clients' method='post'>
+                <input id="client_id" name="client_id" type="hidden" value="{{ client.getId() }}">
+                <label for='haircut'>Haircut Name:</label>
+                <input id='haircut' name='haircut' type='text'>
+
+                <button type='submit'>Add Haircut</button>
+            </form>
+        {% endif %}
+
+            <form action="/clients/updated" method="post">
+                <input name="_method" type="hidden" value="patch">
+                <input name="current_clientId" type="hidden" value="{{ current_client.getId() }}">
+                <input name="client_id" type="hidden" value="{{ client.getId() }}">
+                <input id="name" name="name" type="text">
+                <button type="submit" name="name">Edit Client's Name</button>
+            </form>
 
 
-    <form action="/clients/updated" method="post">
-        <input name="_method" type="hidden" value="patch">
-        <input name="current_clientId" type="hidden" value="{{ current_client.getId() }}">
-        <input name="client_id" type="hidden" value="{{ client.getId() }}">
-        <input id="name" name="name" type="text">
-        <button type="submit" name="button">Edit Name</button>
-    </form>
-{% endif %}
 
-
-<p><a href='/'>Home</a></p>
+        <p><a href='/'>Home</a></p>
+    </div>
 </body>
 </html>

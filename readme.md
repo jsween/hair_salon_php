@@ -10,14 +10,17 @@ _The Silex php app is designed to allow a user to build a database for a hair sa
 
 ## Setup/Installation Requirements
 
-1. _Clone this repository from_ [gitHub](https://github.com/jsween/hair_salon_php.git).
-2. Navigate to the root directory of the project in which ever CLI shell you are using and run the command: __composer install__ .
-3. Create a local server in the /web directory within the project folder using the command: __php -S localhost:8000__ (assuming you are using a mac).
-4. Open the directory http://localhost:8000 in any standard web browser.
+1. Open the computer's terminal.
+2. _Clone this repository from_ [gitHub](https://github.com/jsween/hair_salon_php.git).
+3. Navigate to the root directory of the project in which ever CLI shell you are using and run the command: __composer install__ .
+4. Open a tab in your terminal.  
+5. In the new tab, create a local server in the /web directory within the project folder using the command: __php -S localhost:8000__ (assuming you are using a mac).
+6. Open the directory http://localhost:8000 in any standard web browser.
+7. Use a text editor, such as Sublime 2 or Atom to view code.
 
 ## Known Bugs
 
-_Unable to input 's_
+_Unable to input 's, update names and delete objects_
 
 ## Support and contact details
 

@@ -83,6 +83,14 @@
 		return $app['twig']->render('index.html.twig', array('clients' => $client_to_edit));
 	});
 
+    $app->delete("/clients/{stylists_id}/{client_id}/delete", function($stylists_id, $client_id) use ($app)
+	{
+		$client = Client::find($client_id);
+		$client->delete();
+		$stylist = Stylist::find($stylists_id);
+		return $app['twig']->render('stylist.html.twig', array('stylists' => $stylist, 'clients' => $stylist->getClients()));//add confirm page here
+	});
+
     $app->get("/client/{sid}/{cid}/edit_form", function($sid, $cid) use ($app)
 	{
 		$current_client = Client::find($cid);

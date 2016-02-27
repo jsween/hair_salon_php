@@ -4,7 +4,7 @@
 </head>
 <body>
     {% include '/includes/navbar.html.twig' %}
-    <h1>Here Are Your Stylists</h1>
+    <h1>Barber Blue's Stylists</h1>
 
     {% if stylists is not empty %}
         <p>Here are all your stylists:</p>
@@ -22,6 +22,15 @@
       <p>You need to either add a stylist or hire one!</p>
     {% endif %}
 
+    {% if form %}
+        <form action="/stylists/updated" method="post">
+            <input name="_method" type="hidden" value="patch">
+            <input name="current_stylistId" type="hidden" value="{{ current_stylist.getId() }}">
+            <input type="text" name="name">
+            <button type="submit" name="button">Edit Stylist's Name</button>
+        </form>
+    {% endif %}
+
     <p>Add a new stylist:</p>
 
     <form action="/stylists" method="post">
@@ -31,14 +40,7 @@
         <button type="submit">Add Stylist</button>
     </form>
 
-    {% if form %}
-        <form action="/stylists/updated" method="post">
-            <input name="_method" type="hidden" value="patch">
-            <input name="current_stylistId" type="hidden" value="{{ current_stylist.getId() }}">
-            <input type="text" name="name">
-            <button type="submit" name="button">Edit Name</button>
-        </form>
-    {% endif %}
+
 
 </body>
 </html>

@@ -12,11 +12,14 @@
     $DB = new PDO($server, $username, $password);
 
     $app = new Silex\Application();
+    // $app['debug'] = true;
 
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/../views'
     ));
 
+    use Symfony\Component\HttpFoundation\Request;
+	Request::enableHttpMethodParameterOverride();
 
     /* Homepage -- shows stylists */
     $app->get("/", function() use ($app)
@@ -77,22 +80,20 @@
 	{
 		$client_to_edit = Client::find($_POST['current_clientId']);
 		$client_to_edit->update($_POST['name']);
-        var_dump($client_to_edit);
-
-		return $app['twig']->render('client.html.twig', array('clients' => $client_to_edit, 'form' => false, 'message' => false));
+		return $app['twig']->render('index.html.twig', array('clients' => $client_to_edit));
 	});
 
     $app->get("/client/{sid}/{cid}/edit_form", function($sid, $cid) use ($app)
 	{
 		$current_client = Client::find($cid);
 		$stylist = Stylist::find($sid);
-		return $app['twig']->render('stylist.html.twig', array('current_client' => $current_client, 'stylist' => $stylist, 'clients' => $stylist->getClients(), 'form' => true));
+		return $app['twig']->render('stylist.html.twig', array('current_client' => $current_client, 'stylist' => $stylist, 'clients' => $stylist->getClients()));
 	});
 
     $app->get("/client/{id}", function($id) use ($app)
 	{
 		$current_client = Client::find($id);
-		return $app['twig']->render('client.html.twig', array('current_client' => $current_client, 'form' => false)); //FIX ME
+		return $app['twig']->render('client.html.twig', array('current_client' => $current_client));
 	});
 
     return $app;
